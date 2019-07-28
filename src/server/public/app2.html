@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style>
+        .chinese_bold_image {
+            font-size: 4em;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" integrity="sha256-UzFD2WYH2U1dQpKDjjZK72VtPeWP50NoJjd26rnAdUI=" crossorigin="anonymous" />
+    <title>Practice your chinese Pronunciation</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">Practice your chinese Pronunciation</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Quiz <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Word List</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+
+        <div class="jumbotron">
+            <button type="button">Practice your chinese Pronunciation</button>
+
+<br>
+#########
+<input type="file" accept="audio/*" capture id="recorder">
+<audio id="player" controls></audio>
+<script>
+        var recorder = document.getElementById('recorder');
+        var player = document.getElementById('player');
+      
+        recorder.addEventListener('change', function(e) {
+          var file = e.target.files[0];
+          // Do something with the audio file.
+          player.srcObject = file;
+        });
+      </script>
+
+        </div>
+        <div id="app">
+            <app-chinese-card-quiz :quiz="chineseQuiz"></app-chinese-card-quiz>
+        </div>
+    </div>
+
+
+
+    <audio id="player" controls></audio>
+    <script>
+      var recorder = document.getElementById('recorder');
+      var player = document.getElementById('player');
+    
+      recorder.addEventListener('change', function(e) {
+        var file = e.target.files[0];
+        // Do something with the audio file.
+        player.srcObject = file;
+      });
+    </script>
+
+
+    <template id="app-chinese-card-quiz-template">
+        <div v-if="quiz.chinese" class="card" style="width: 18rem;">
+                <div class="card-img-top chinese_bold_image">
+                    {{quiz.chinese}}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{quiz.pinyin}}</h5>
+                    <p class="card-text">
+                        Meaning: {{ quiz.meaning_en }}
+                    </p>
+                    <button v-if="!isRecording" class="btn btn-primary" @click="recordUserVoice()">Start Record</button>
+                    <button v-if="isRecording" class="btn btn-danger" @click="stopRecordingUserVoice()">
+                        <i class="fa fa-spinner fa-spin"></i> {{recordingSecLeft}} secs left: Stop Recording
+                    </button>
+                    <div class="progress" v-if="isRecording">
+                        <div class="progress-bar" role="progressbar bg-warning" :style="recordingLeftWidthStyle" :aria-valuenow="recordingPercLeft" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+            <div v-else>
+                Loading...
+            </div>
+    </template>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+    <script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <script src="js/app2.js"></script>
+</body>
+
+</html>
